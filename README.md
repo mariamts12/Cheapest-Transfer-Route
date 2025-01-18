@@ -1,4 +1,4 @@
-# Cheapest Transfer Route Optimizer
+# Cheapest Transfer Route
 
 A Spring Boot application that finds the optimal combination of transfers for a logistics company while ensuring the total package weight stays within a given limit. The application uses dynamic programming (0/1 Knapsack algorithm) to maximize the total cost while respecting weight constraints.
 
