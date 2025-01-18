@@ -2,13 +2,13 @@ package com.example.cheapesttransferroute;
 
 import java.util.List;
 
-public class Request {
+public class CTRRequest {
     private int maxWeight;
     private List<Transfer> availableTransfers;
 
-    public Request() {}
+    public CTRRequest() {}
 
-    public Request(int maxWeight, List<Transfer> availableTransfers) {
+    public CTRRequest(int maxWeight, List<Transfer> availableTransfers) {
         this.maxWeight = maxWeight;
         this.availableTransfers = availableTransfers;
     }

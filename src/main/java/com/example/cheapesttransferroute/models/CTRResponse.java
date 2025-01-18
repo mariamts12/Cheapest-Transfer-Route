@@ -2,13 +2,13 @@ package com.example.cheapesttransferroute;
 
 import java.util.List;
 
-public class Response {
+public class CTRResponse {
     private List<Transfer> selectedTransfers;
     private int totalCost;
     private int totalWeight;
 
-    public Response() {}
-    public Response(List<Transfer> selectedTransfers, int totalCost, int totalWeight){
+    public CTRResponse() {}
+    public CTRResponse(List<Transfer> selectedTransfers, int totalCost, int totalWeight){
         this.selectedTransfers = selectedTransfers;
         this.totalCost = totalCost;
         this.totalWeight = totalWeight;
