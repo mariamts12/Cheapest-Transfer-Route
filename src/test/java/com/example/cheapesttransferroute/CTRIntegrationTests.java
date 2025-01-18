@@ -1,10 +1,7 @@
 package com.example.cheapesttransferroute;
 
 import com.example.cheapesttransferroute.models.CTRRequest;
-import com.example.cheapesttransferroute.models.CTRResponse;
 import com.example.cheapesttransferroute.models.Transfer;
-import com.example.cheapesttransferroute.services.CTRService;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
