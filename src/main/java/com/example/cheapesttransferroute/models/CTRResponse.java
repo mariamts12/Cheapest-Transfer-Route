@@ -1,4 +1,4 @@
-package com.example.cheapesttransferroute;
+package com.example.cheapesttransferroute.models;
 
 import java.util.List;
 

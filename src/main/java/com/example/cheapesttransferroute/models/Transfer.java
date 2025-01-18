@@ -1,4 +1,6 @@
-package com.example.cheapesttransferroute;
+package com.example.cheapesttransferroute.models;
+
+import java.util.Objects;
 
 public class Transfer {
     private int weight;
@@ -25,6 +27,21 @@ public class Transfer {
 
     public void setWeight(int weight) {
         this.weight = weight;
+    }
+
+    @Override
+    public boolean equals(Object obj){
+        if(this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()){
+            return false;
+        } else {
+            return ((Transfer) obj).getCost() == this.cost && ((Transfer) obj).getWeight() == this.weight;
+        }
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(weight, cost);
     }
 }
 

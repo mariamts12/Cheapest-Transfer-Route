@@ -1,4 +1,4 @@
-package com.example.cheapesttransferroute;
+package com.example.cheapesttransferroute.services;
 
 import com.example.cheapesttransferroute.models.CTRRequest;
 import com.example.cheapesttransferroute.models.CTRResponse;
@@ -11,6 +11,9 @@ import java.util.List;
 @Service
 public class CTRService {
     public CTRResponse findCheapestTransferRoute(CTRRequest request){
+        if (request.getAvailableTransfers() == null){
+            return new CTRResponse(new ArrayList<Transfer>(),0, 0);
+        }
         int maxWeight = request.getMaxWeight();
         List<Transfer> availableTransfers = request.getAvailableTransfers();
         int size = availableTransfers.size();

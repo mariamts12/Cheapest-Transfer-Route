@@ -1,5 +1,8 @@
-package com.example.cheapesttransferroute;
+package com.example.cheapesttransferroute.controllers;
 
+import com.example.cheapesttransferroute.services.CTRService;
+import com.example.cheapesttransferroute.models.CTRRequest;
+import com.example.cheapesttransferroute.models.CTRResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
