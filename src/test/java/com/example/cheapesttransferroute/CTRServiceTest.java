@@ -10,7 +10,7 @@ import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class CTRServiceTest {
+public class CTRServiceTest {
     @Test
     void testFindCheapestTransferRouteValidInput() {
         CTRService service = new CTRService();
@@ -31,6 +31,72 @@ class CTRServiceTest {
 
         Set<Transfer> res = new HashSet<>();
         res.add(new Transfer(5, 10));
+        res.add(new Transfer(10, 20));
+
+        for(int i = 0; i < res.size(); i++){
+            assertTrue(res.contains(response.getSelectedTransfers().get(i)));
+        }
+    }
+
+    @Test
+    void testFindCheapestTransferRouteValidInput2() {
+        CTRService service = new CTRService();
+        List<Transfer> transfers = Arrays.asList(
+                new Transfer(3, 5),
+                new Transfer(8, 15)
+        );
+        CTRRequest request = new CTRRequest(8, transfers);
+
+        CTRResponse response = service.findCheapestTransferRoute(request);
+
+        assertNotNull(response);
+        assertEquals(15, response.getTotalCost());
+        assertEquals(8, response.getTotalWeight());
+        assertEquals(1, response.getSelectedTransfers().size());
+
+
+        assertEquals(new Transfer(8, 15), response.getSelectedTransfers().get(0));
+    }
+
+    @Test
+    void testFindCheapestTransferRouteValidInput3() {
+        CTRService service = new CTRService();
+        List<Transfer> transfers = Arrays.asList(
+                new Transfer(20, 20),
+                new Transfer(17, 20)
+        );
+        CTRRequest request = new CTRRequest(19, transfers);
+
+        CTRResponse response = service.findCheapestTransferRoute(request);
+
+        assertNotNull(response);
+        assertEquals(20, response.getTotalCost());
+        assertEquals(17, response.getTotalWeight());
+        assertEquals(1, response.getSelectedTransfers().size());
+
+
+        assertEquals(new Transfer(17, 20), response.getSelectedTransfers().get(0));
+    }
+
+    @Test
+    void testFindCheapestTransferRouteValidInput4() {
+        CTRService service = new CTRService();
+        List<Transfer> transfers = Arrays.asList(
+                new Transfer(5, 15),
+                new Transfer(5, 10),
+                new Transfer(10, 20)
+        );
+        CTRRequest request = new CTRRequest(15, transfers);
+
+        CTRResponse response = service.findCheapestTransferRoute(request);
+
+        assertNotNull(response);
+        assertEquals(35, response.getTotalCost());
+        assertEquals(15, response.getTotalWeight());
+        assertEquals(2, response.getSelectedTransfers().size());
+
+        Set<Transfer> res = new HashSet<>();
+        res.add(new Transfer(5, 15));
         res.add(new Transfer(10, 20));
 
         for(int i = 0; i < res.size(); i++){
