@@ -20,7 +20,7 @@ public class CTRController {
 
     @PostMapping("/api/cheapest-transfer-route")
     public ResponseEntity<CTRResponse> findCheapestRoute(@RequestBody CTRRequest request) {
-        if (request.getMaxWeight() <= 0 || request.getAvailableTransfers().size() == 0 || request.getAvailableTransfers() == null) {
+        if (request.getMaxWeight() <= 0 || request.getAvailableTransfers() == null) {
             return ResponseEntity.badRequest().build();
         }
 

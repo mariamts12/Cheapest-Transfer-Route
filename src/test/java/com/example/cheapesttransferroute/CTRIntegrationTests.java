@@ -1,7 +1,10 @@
 package com.example.cheapesttransferroute;
 
 import com.example.cheapesttransferroute.models.CTRRequest;
+import com.example.cheapesttransferroute.models.CTRResponse;
 import com.example.cheapesttransferroute.models.Transfer;
+import com.example.cheapesttransferroute.services.CTRService;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -9,9 +12,12 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import com.fasterxml.jackson.databind.ObjectMapper;
+
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -44,12 +50,52 @@ public class CTRIntegrationTests {
     }
 
     @Test
-    void testOptimizeRoute_BadRequest() throws Exception {
+    void testFindCheapestRouteBadRequest() throws Exception {
         CTRRequest request = new CTRRequest(-1, Arrays.asList(new Transfer(5, 10)));
 
         mockMvc.perform(post("/api/cheapest-transfer-route")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(request)))
                 .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    void testFindCheapestRouteEmptyList() throws Exception {
+        CTRRequest request = new CTRRequest(15, new ArrayList<>());
+
+        mockMvc.perform(post("/api/cheapest-transfer-route")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(request)))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.totalCost").value(0))
+                .andExpect(jsonPath("$.totalWeight").value(0))
+                .andExpect(jsonPath("$.selectedTransfers.length()").value(0));
+    }
+
+    @Test
+    void testFindCheapestRouteInvalidInput() throws Exception {
+        CTRRequest request = new CTRRequest(10, null);
+
+        mockMvc.perform(post("/api/cheapest-transfer-route")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(request)))
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    void testFindCheapestRouteNoValidAnswer() throws Exception {
+        List<Transfer> transfers = Arrays.asList(
+                new Transfer(20, 10),
+                new Transfer(16, 20)
+        );
+        CTRRequest request = new CTRRequest(15, transfers);
+
+        mockMvc.perform(post("/api/cheapest-transfer-route")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(request)))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.totalCost").value(0))
+                .andExpect(jsonPath("$.totalWeight").value(0))
+                .andExpect(jsonPath("$.selectedTransfers.length()").value(0));
     }
 }
