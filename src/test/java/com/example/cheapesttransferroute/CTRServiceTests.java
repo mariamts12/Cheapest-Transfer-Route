@@ -150,4 +150,22 @@ public class CTRServiceTests {
         assertEquals(0, response.getTotalWeight());
         assertTrue(response.getSelectedTransfers().isEmpty());
     }
+
+    @Test
+    void testFindCheapestTransferRoute() {
+        CTRService service = new CTRService();
+
+        List<Transfer> transfers = Arrays.asList(
+                new Transfer(20, 10),
+                new Transfer(16, 20)
+        );
+        CTRRequest request = new CTRRequest(15, transfers);
+
+        CTRResponse response = service.findCheapestTransferRoute(request);
+
+        assertNotNull(response);
+        assertEquals(0, response.getTotalCost());
+        assertEquals(0, response.getTotalWeight());
+        assertTrue(response.getSelectedTransfers().isEmpty());
+    }
 }
